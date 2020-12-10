@@ -9,7 +9,6 @@ const FormDate = ({ handleChange }) => {
           type="date"
           name="dateOfBirth"
           id="dateOfBirth"
-          max="2020/01/01"
           onChange={handleChange}
         />
       </label>

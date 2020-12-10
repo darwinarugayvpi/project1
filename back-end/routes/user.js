@@ -17,6 +17,16 @@ router.get('/', (req, res) => {
   UserController.getAllUsers().then((result) => res.send(result));
 });
 
+router.get('/:userID', (req, res) => {
+  UserController.getUser(req.params.userID).then((result) => {
+    if (result) {
+      res.send(result);
+    } else {
+      res.status(403).send('Something went wrong');
+    }
+  });
+});
+
 router.put('/:userID', (req, res) => {
   UserController.editUser(req.params.userID, req.body).then((result) => {
     if (result) {

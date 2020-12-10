@@ -17,12 +17,23 @@ class Table extends Component {
     return objKeys;
   };
 
+  handleDelete = (id) => {
+    fetch(`http://localhost:4000/user/${id}`, {
+      method: 'DELETE',
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  };
+
   render() {
     console.log(this.props.employees);
     return (
       <table className="table">
         <TableHead tableHead={this.tableHeadList()} />
-        <TableBody tableBody={this.props.employees} />
+        <TableBody
+          tableBody={this.props.employees}
+          onDelete={this.handleDelete}
+        />
       </table>
     );
   }

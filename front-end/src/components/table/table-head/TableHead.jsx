@@ -8,9 +8,9 @@ const TableHead = ({ tableHead }) => {
         {tableHead
           .filter((list) => list !== '__v')
           .map((list) => {
-            return <th>{list}</th>;
+            return <th key={list}>{list}</th>;
           })}
-        <td>Actions</td>
+        <th>Actions</th>
       </tr>
     </thead>
   );

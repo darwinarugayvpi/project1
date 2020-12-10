@@ -1,0 +1,16 @@
+.nav-bar {
+  display: flex;
+  background-color: aliceblue;
+  padding: 20px;
+  margin-bottom: 20px;
+
+  .item {
+    display: inline-block;
+    margin: 5px 10px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  .link {
+    text-decoration: none;
+  }
+}

@@ -22,6 +22,12 @@ const getAllUsers = () => {
   });
 };
 
+const getUser = (userID) => {
+  return User.findById(userID).then((foundUser, err) => {
+    return !err ? foundUser : false;
+  });
+};
+
 const editUser = (userID, userDetails) => {
   const { firstName, middleName, lastName, gender, dateOfBirth } = userDetails;
   const userUpdate = {
@@ -55,6 +61,7 @@ const deleteUser = (userID) => {
 module.exports = {
   addUser,
   getAllUsers,
+  getUser,
   editUser,
   deleteUser,
 };

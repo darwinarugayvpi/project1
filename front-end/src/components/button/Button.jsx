@@ -2,11 +2,12 @@ import React from 'react';
 
 import './button.styles.scss';
 
-const Button = (props) => {
+const Button = ({ children, handleDelete, action }) => {
+  console.log(action);
   return (
-    <div className="group">
-      <button className="button">{props.children}</button>
-    </div>
+    <button onClick={handleDelete} className={action ? 'icon' : 'button'}>
+      {children}
+    </button>
   );
 };
 

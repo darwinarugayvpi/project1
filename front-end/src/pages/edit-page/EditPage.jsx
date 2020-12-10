@@ -1,17 +1,35 @@
 import React, { Component } from 'react';
+
 import FormInput from '../../components/form-input/FormInput';
 import FormRadio from '../../components/form-radio/FormRadio';
 import FormDate from '../../components/form-date/FormDate';
 import Button from '../../components/button/Button';
 
 class EditPage extends Component {
+  constructor(props) {
+    super(props);
+  }
   state = {
     firstName: '',
     middleName: '',
     lastName: '',
     gender: '',
-    birthDate: '',
+    dateOfBirth: '',
   };
+
+  componentDidMount() {
+    fetch(`http://localhost:4000/user/${this.props.match.params.userID}`)
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({
+          firstName: data.firstName,
+          middleName: data.middleName,
+          lastName: data.lastName,
+          gender: data.gender,
+          dateOfBirth: data.dateOfBirth.slice(0, 10),
+        });
+      });
+  }
 
   handleChange = (event) => {
     const { name, value } = event.target;
@@ -21,10 +39,24 @@ class EditPage extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+
+    fetch(`http://localhost:4000/user/${this.props.match.params.userID}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        firstName: this.state.firstName,
+        middleName: this.state.middleName,
+        lastName: this.state.lastName,
+        gender: this.state.gender,
+        dateOfBirth: this.state.dateOfBirth,
+      }),
+    })
+      .then((res) => res.json())
+      .then();
   };
 
   render() {
-    console.log(this.state);
+    console.log(this.state.dateOfBirth);
     return (
       <div className="add-page">
         <h2>Edit Information</h2>
@@ -52,16 +84,21 @@ class EditPage extends Component {
             <FormRadio
               id="male"
               value="male"
+              checked={this.state.gender === 'male' ? true : false}
               handleChange={this.handleChange}
             />
             <FormRadio
               id="female"
               value="female"
+              checked={this.state.gender === 'female' ? true : false}
               handleChange={this.handleChange}
             />
           </label>
           <label>
-            <FormDate handleChange={this.handleChange} />
+            <FormDate
+              value={this.state.dateOfBirth}
+              handleChange={this.handleChange}
+            />
           </label>
           <Button type="submit">Update</Button>
         </form>

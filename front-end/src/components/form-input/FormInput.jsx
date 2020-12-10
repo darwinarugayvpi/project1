@@ -3,7 +3,6 @@ import React from 'react';
 import './form-input.styles.scss';
 
 const FormInput = ({ label, handleChange, ...otherProps }) => {
-  console.log(otherProps);
   return (
     <div className="group">
       <input
