@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { DatePicker } from 'antd';
 import moment from 'moment';
+import Swal from 'sweetalert2';
 
 import FormInput from '../../components/form-input/FormInput';
 import FormRadio from '../../components/form-radio/FormRadio';

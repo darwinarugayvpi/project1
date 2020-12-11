@@ -42,7 +42,7 @@ router.delete('/:userID', (req, res) => {
     if (result) {
       res.send(result);
     } else {
-      res.status(403).send('Failed to Delete');
+      res.status(403).send('failed');
     }
   });
 });

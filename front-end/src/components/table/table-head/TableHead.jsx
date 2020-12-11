@@ -13,7 +13,12 @@ const TableHead = ({ tableHead }) => {
               return <th key={list}>{list}</th>;
             })
         )}
-        {tableHead.length !== 0 ? <th>Actions</th> : null}
+        {tableHead.length !== 0 ? (
+          <React.Fragment>
+            <th>Age</th>
+            <th>Actions</th>
+          </React.Fragment>
+        ) : null}
       </tr>
     </thead>
   );

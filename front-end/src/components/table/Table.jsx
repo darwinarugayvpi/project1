@@ -7,6 +7,7 @@ import TableBody from './table-body/TableBody';
 class Table extends Component {
   constructor(props) {
     super(props);
+    this.handleDelete = this.handleDelete.bind(this);
 
     this.state = { employees: this.props.employees };
   }
@@ -18,7 +19,7 @@ class Table extends Component {
     return objKeys;
   };
 
-  handleDelete = (id) => {
+  handleDelete(id) {
     Swal.fire({
       title: 'Are you sure?',
       text: 'This is permanently deleted!',
@@ -33,6 +34,7 @@ class Table extends Component {
         })
           .then((res) => res.json())
           .then((data) => {
+            console.log('data');
             if (data) {
               Swal.fire({
                 icon: 'success',
@@ -44,16 +46,20 @@ class Table extends Component {
                 return emp._id !== id;
                 // console.log(id, emp._id, id !== emp._id);
               });
-
-              // console.log(newState);
               return this.setState({ employees: newState });
+            } else {
+              Swal.fire({
+                title: 'Error',
+                text: 'Something went wrong!',
+                icon: 'error',
+              });
             }
           });
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire('Cancelled', 'Your data is safe', 'error');
       }
     });
-  };
+  }
 
   render() {
     console.log('state', this.state.employees);
@@ -62,7 +68,7 @@ class Table extends Component {
       <table className="table">
         <TableHead tableHead={this.tableHeadList()} />
         <TableBody
-          tableBody={this.state.employees}
+          tableBody={this.props.employees}
           onDelete={this.handleDelete}
         />
       </table>

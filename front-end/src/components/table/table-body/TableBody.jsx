@@ -16,6 +16,15 @@ class TableBody extends Component {
   //     console.log(`not equal`);
   //   }
   // }
+  getAge = (dateString) => {
+    if (dateString === null) {
+      return;
+    }
+    const now = new Date();
+    const year = new Date(dateString);
+    const age = now.getFullYear() - year.getFullYear();
+    return age;
+  };
   render() {
     // console.log(this.props);
     return (
@@ -27,12 +36,13 @@ class TableBody extends Component {
               <td>{user.firstName}</td>
               <td>{user.middleName}</td>
               <td>{user.lastName}</td>
-              <td>{user.gender}</td>
+              <td>{user.gender.charAt(0).toUpperCase()}</td>
               <td>
                 {user.dateOfBirth !== null
                   ? user.dateOfBirth.slice(0, 10)
                   : 'None'}
               </td>
+              <td>{this.getAge(user.dateOfBirth)}</td>
               <td>
                 <Link to={`/edit/${user._id}`}>
                   <EditIcon />
