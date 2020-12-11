@@ -65,13 +65,19 @@ class Table extends Component {
     console.log('state', this.state.employees);
     console.log('props', this.props.employees);
     return (
-      <table className="table">
-        <TableHead tableHead={this.tableHeadList()} />
-        <TableBody
-          tableBody={this.props.employees}
-          onDelete={this.handleDelete}
-        />
-      </table>
+      <React.Fragment>
+        <table className="table table-bordered">
+          <TableHead tableHead={this.tableHeadList()} />
+          <TableBody
+            tableBody={this.props.employees}
+            onDelete={this.handleDelete}
+          />
+        </table>
+        <p>
+          {this.props.employees.length}{' '}
+          {this.props.employees.length > 1 ? 'records' : 'record'} found.
+        </p>
+      </React.Fragment>
     );
   }
 }

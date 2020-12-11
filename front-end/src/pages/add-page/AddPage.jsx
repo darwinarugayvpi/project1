@@ -98,23 +98,28 @@ class AddPage extends Component {
               />
             </label>
 
-            <label>
-              Date of Birth(optional):
-              <DatePicker
-                onChange={this.handleDate}
-                showToday={false}
-                name="dateOfBirth"
-                defaultValue={(current) => {
-                  return moment(`${new Date().getFullYear() - 18}`, dateFormat);
-                }}
-                disabledDate={(current) => {
-                  return (
-                    moment().add(-18, 'years') <= current ||
-                    moment().add(-60, 'years') >= current
-                  );
-                }}
-              />
-            </label>
+            <div>
+              <label>
+                Date of Birth(optional):
+                <DatePicker
+                  onChange={this.handleDate}
+                  showToday={false}
+                  name="dateOfBirth"
+                  defaultValue={(current) => {
+                    return moment(
+                      `${new Date().getFullYear() - 18}`,
+                      dateFormat
+                    );
+                  }}
+                  disabledDate={(current) => {
+                    return (
+                      moment().add(-18, 'years') <= current ||
+                      moment().add(-60, 'years') >= current
+                    );
+                  }}
+                />
+              </label>
+            </div>
             <Button type="submit">Add</Button>
           </form>
         </div>
