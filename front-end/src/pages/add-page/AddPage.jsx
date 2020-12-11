@@ -25,12 +25,10 @@ class AddPage extends Component {
     this.setState({ [name]: value });
   };
 
-  handleDate = (event) => {
-    console.log(event);
-    // const { name, value } = event;
-    // this.setState({
-    //   [name]: value,
-    // });
+  handleDate = (date, dateString) => {
+    this.setState({
+      dateOfBirth: date,
+    });
   };
 
   handleSubmit = (event) => {
