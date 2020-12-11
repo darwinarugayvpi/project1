@@ -14,6 +14,14 @@ class HomePage extends Component {
         this.setState({ employees: data });
       });
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('prevState', prevState);
+    console.log('prevProps', prevProps);
+    if (prevState.employees !== this.state.employees) {
+    }
+  }
+
   render() {
     return (
       <React.Fragment>

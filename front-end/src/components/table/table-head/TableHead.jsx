@@ -3,14 +3,17 @@ import React from 'react';
 const TableHead = ({ tableHead }) => {
   return (
     <thead>
-      {/* <TableRow data={tableHead} scope="col" /> */}
       <tr scope="col">
-        {tableHead
-          .filter((list) => list !== '__v')
-          .map((list) => {
-            return <th key={list}>{list}</th>;
-          })}
-        <th>Actions</th>
+        {tableHead.length === 0 ? (
+          <th style={{ textAlign: 'center' }}>No record.</th>
+        ) : (
+          tableHead
+            .filter((list) => list !== '__v')
+            .map((list) => {
+              return <th key={list}>{list}</th>;
+            })
+        )}
+        {tableHead.length !== 0 ? <th>Actions</th> : null}
       </tr>
     </thead>
   );

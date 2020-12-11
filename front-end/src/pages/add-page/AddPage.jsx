@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { DatePicker } from 'antd';
 import moment from 'moment';
+import Swal from 'sweetalert2';
 
 import FormInput from '../../components/form-input/FormInput';
 import FormRadio from '../../components/form-radio/FormRadio';
@@ -33,7 +34,6 @@ class AddPage extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    alert('Okay');
     fetch('http://localhost:4000/user', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -47,8 +47,13 @@ class AddPage extends Component {
     })
       .then((res) => res.json())
       .then((data) => {
-        alert('Successfully added!');
-        <Redirect to="/" />;
+        if (data === 'Success') {
+          Swal.fire({
+            title: 'Success',
+            icon: 'success',
+            text: 'Successfullly added!',
+          });
+        }
       });
   };
 
@@ -109,9 +114,6 @@ class AddPage extends Component {
                 }}
               />
             </label>
-
-            {/* <FormDate handleChange={this.handleChange} /> */}
-
             <Button type="submit">Add</Button>
           </form>
         </div>

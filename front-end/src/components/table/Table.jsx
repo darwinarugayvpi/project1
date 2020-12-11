@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import Swal from 'sweetalert2';
+
 import TableHead from './table-head/TableHead';
 import TableBody from './table-body/TableBody';
+
 class Table extends Component {
   constructor(props) {
     super(props);
@@ -18,15 +21,36 @@ class Table extends Component {
   };
 
   handleDelete = (id) => {
-    fetch(`http://localhost:4000/user/${id}`, {
-      method: 'DELETE',
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This is permanently deleted!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it',
+    }).then((result) => {
+      if (result.value) {
+        fetch(`http://localhost:4000/user/${id}`, {
+          method: 'DELETE',
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Delete',
+                text: 'Successfully deleted!',
+              });
+            }
+          });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire('Cancelled', 'Your imaginary file is safe :)', 'error');
+      }
+    });
   };
 
   render() {
-    console.log(this.props.employees);
+    // console.log(this.props.employees);
     return (
       <table className="table">
         <TableHead tableHead={this.tableHeadList()} />
