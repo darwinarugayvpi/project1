@@ -8,9 +8,7 @@ class Table extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      employees: this.props.employees,
-    };
+    this.state = { employees: this.props.employees };
   }
 
   tableHeadList = () => {
@@ -41,21 +39,30 @@ class Table extends Component {
                 title: 'Delete',
                 text: 'Successfully deleted!',
               });
+              const copyState = [...this.props.employees];
+              const newState = copyState.filter((emp) => {
+                return emp._id !== id;
+                // console.log(id, emp._id, id !== emp._id);
+              });
+
+              // console.log(newState);
+              return this.setState({ employees: newState });
             }
           });
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire('Cancelled', 'Your imaginary file is safe :)', 'error');
+        Swal.fire('Cancelled', 'Your data is safe', 'error');
       }
     });
   };
 
   render() {
-    // console.log(this.props.employees);
+    console.log('state', this.state.employees);
+    console.log('props', this.props.employees);
     return (
       <table className="table">
         <TableHead tableHead={this.tableHeadList()} />
         <TableBody
-          tableBody={this.props.employees}
+          tableBody={this.state.employees}
           onDelete={this.handleDelete}
         />
       </table>
