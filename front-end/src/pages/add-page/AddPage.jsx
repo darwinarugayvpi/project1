@@ -25,10 +25,12 @@ class AddPage extends Component {
     this.setState({ [name]: value });
   };
 
-  handleDate = (date, dateString) => {
-    this.setState({
-      dateOfBirth: date._d,
-    });
+  handleDate = (event) => {
+    console.log(event);
+    // const { name, value } = event;
+    // this.setState({
+    //   [name]: value,
+    // });
   };
 
   handleSubmit = (event) => {
@@ -53,67 +55,68 @@ class AddPage extends Component {
   };
 
   render() {
-    console.log(`${new Date().getFullYear() - 18}`);
+    console.log(this.state.dateOfBirth);
     const dateFormat = 'YYYY/MM/DD';
     return (
       <div className="add-page">
         <h2>Add New</h2>
-        <form onSubmit={this.handleSubmit}>
-          <FormInput
-            value={this.state.firstName}
-            name="firstName"
-            handleChange={this.handleChange}
-            label="First Name"
-          />
-          <FormInput
-            value={this.state.middleName}
-            name="middleName"
-            handleChange={this.handleChange}
-            label="Middle Name"
-          />
-          <FormInput
-            value={this.state.lastName}
-            name="lastName"
-            handleChange={this.handleChange}
-            label="Last Name"
-          />
-          <label>
-            Gender:
-            <FormRadio
-              id="male"
-              value="male"
+        <div className="add-page-form">
+          <form onSubmit={this.handleSubmit}>
+            <FormInput
+              value={this.state.firstName}
+              name="firstName"
               handleChange={this.handleChange}
+              label="First Name"
             />
-            <FormRadio
-              id="female"
-              value="female"
+            <FormInput
+              value={this.state.middleName}
+              name="middleName"
               handleChange={this.handleChange}
+              label="Middle Name"
             />
-          </label>
-
-          <label>
-            Date of Birth:
-            <DatePicker
-              onChange={this.handleDate}
-              showToday={false}
-              name="dateOfBirth"
-              defaultValue={moment(
-                `${new Date().getFullYear() - 18}`,
-                dateFormat
-              )}
-              disabledDate={(current) => {
-                return (
-                  moment().add('years', -18) <= current ||
-                  moment().add('years', -60) >= current
-                );
-              }}
+            <FormInput
+              value={this.state.lastName}
+              name="lastName"
+              handleChange={this.handleChange}
+              label="Last Name"
             />
-          </label>
+            <label>
+              Gender:
+              <FormRadio
+                id="male"
+                value="male"
+                handleChange={this.handleChange}
+              />
+              <FormRadio
+                id="female"
+                value="female"
+                handleChange={this.handleChange}
+              />
+            </label>
 
-          {/* <FormDate handleChange={this.handleChange} /> */}
+            <label>
+              Date of Birth(optional):
+              <DatePicker
+                onChange={this.handleDate}
+                showToday={false}
+                name="dateOfBirth"
+                defaultValue={(current) => {
+                  return moment(`${new Date().getFullYear() - 18}`, dateFormat);
+                }}
+                disabledDate={(current) => {
+                  return (
+                    moment().add(-18, 'years') <= current ||
+                    moment().add(-60, 'years') >= current
+                  );
+                }}
+              />
+            </label>
 
-          <Button type="submit">Add</Button>
-        </form>
+            {/* <FormDate handleChange={this.handleChange} /> */}
+
+            <Button type="submit">Add</Button>
+          </form>
+        </div>
       </div>
     );
   }

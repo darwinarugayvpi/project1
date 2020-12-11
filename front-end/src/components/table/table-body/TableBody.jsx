@@ -16,7 +16,11 @@ const TableBody = ({ tableBody, onDelete }) => {
             <td>{user.middleName}</td>
             <td>{user.lastName}</td>
             <td>{user.gender}</td>
-            <td>{user.dateOfBirth.slice(0, 10)}</td>
+            <td>
+              {user.dateOfBirth !== null
+                ? user.dateOfBirth.slice(0, 10)
+                : 'None'}
+            </td>
             <td>
               <Link to={`/edit/${user._id}`}>
                 <EditIcon />
