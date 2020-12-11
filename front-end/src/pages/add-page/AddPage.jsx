@@ -53,7 +53,8 @@ class AddPage extends Component {
   };
 
   render() {
-    console.log(this.state);
+    console.log(`${new Date().getFullYear() - 18}`);
+    const dateFormat = 'YYYY/MM/DD';
     return (
       <div className="add-page">
         <h2>Add New</h2>
@@ -96,6 +97,10 @@ class AddPage extends Component {
               onChange={this.handleDate}
               showToday={false}
               name="dateOfBirth"
+              defaultValue={moment(
+                `${new Date().getFullYear() - 18}`,
+                dateFormat
+              )}
               disabledDate={(current) => {
                 return (
                   moment().add('years', -18) <= current ||
