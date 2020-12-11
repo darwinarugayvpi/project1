@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { DatePicker } from 'antd';
+import moment from 'moment';
 
 import FormInput from '../../components/form-input/FormInput';
 import FormRadio from '../../components/form-radio/FormRadio';
@@ -31,6 +33,12 @@ class EditPage extends Component {
       });
   }
 
+  handleDate = (date, dateString) => {
+    this.setState({
+      dateOfBirth: date._d,
+    });
+  };
+
   handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -52,10 +60,13 @@ class EditPage extends Component {
       }),
     })
       .then((res) => res.json())
-      .then();
+      .then((data) => {
+        console.log(data);
+      });
   };
 
   render() {
+    const dateFormat = 'YYYY/MM/DD';
     console.log(this.state.dateOfBirth);
     return (
       <div className="add-page">
@@ -94,12 +105,23 @@ class EditPage extends Component {
               handleChange={this.handleChange}
             />
           </label>
+
           <label>
-            <FormDate
-              value={this.state.dateOfBirth}
-              handleChange={this.handleChange}
+            Date of Birth:
+            <DatePicker
+              onChange={this.handleDate}
+              name="dateOfBirth"
+              showToday={false}
+              value={moment(`${this.state.dateOfBirth}`, dateFormat)}
+              disabledDate={(current) => {
+                return (
+                  moment().add('years', -18) <= current ||
+                  moment().add('years', -60) >= current
+                );
+              }}
             />
           </label>
+
           <Button type="submit">Update</Button>
         </form>
       </div>

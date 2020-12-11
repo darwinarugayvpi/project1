@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { DatePicker } from 'antd';
+import moment from 'moment';
 
 import FormInput from '../../components/form-input/FormInput';
 import FormRadio from '../../components/form-radio/FormRadio';
@@ -21,6 +23,12 @@ class AddPage extends Component {
     const { name, value } = event.target;
 
     this.setState({ [name]: value });
+  };
+
+  handleDate = (date, dateString) => {
+    this.setState({
+      dateOfBirth: date._d,
+    });
   };
 
   handleSubmit = (event) => {
@@ -82,7 +90,22 @@ class AddPage extends Component {
             />
           </label>
 
-          <FormDate handleChange={this.handleChange} />
+          <label>
+            Date of Birth:
+            <DatePicker
+              onChange={this.handleDate}
+              showToday={false}
+              name="dateOfBirth"
+              disabledDate={(current) => {
+                return (
+                  moment().add('years', -18) <= current ||
+                  moment().add('years', -60) >= current
+                );
+              }}
+            />
+          </label>
+
+          {/* <FormDate handleChange={this.handleChange} /> */}
 
           <Button type="submit">Add</Button>
         </form>
